@@ -1,0 +1,476 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Aeroelasticità \\ Esercitazione 3 \\ Prof.re Franco Mastroddi}
+\author{Matteo Hakimi\\ 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduzione}
+ Si vuole studiare la stabilità, e la risposta libera, di una superficie portante sottile investita da una corrente, attraverso il calcolo del luogo delle radici costruito mettendo a parametro la velocità adimensionale $\hat{U}$.\\
+Lo studio della stabilità, verrà condotto ipotizzando dapprima un'aerodinamica non stazionaria per poi condiderare il caso di aerodinamica quasi stazionaria, confrontando i risultati ottenuti con quelli dell'{\itshape esercitazione 2}.\\
+Una volta individuati i valori critici, rispettivamente della velocità adimensionale e della frequenza ridotta, si procederà con il calcolo della risposta libera del sistema, prima nella condizione sub-critica e poi in quella super-critica.\\
+Infine verrà preso in considerazione il caso di un velivolo dell'aviazione generale, nella fattispecie lo stesso velivolo dell' esercitazione 2, in presenza di un'aerodinamica non stazionaria, in cui si studierà la stabilità attraveso il luogo delle radici, effettuando un confronto dei risultati ottenuti con quelli inerenti all' esercitazione precedente.\\
+
+
+ 
+\section{Formulazione del problema}
+La superficie portante sottile viene modellata come se fosse una lastra piana rigida ad elasticità concentrata.\\
+In particolare le rigidezza flessionale e torsionale della struttura vengono sostituite con delle molle concentrate, applicate nel punto ascissa $x_{e}$  corrispondente al centro elastico di questa, che simulano il comportamento elastico della stessa.\\
+Tuttavia nel caso preso in considerazione, sappiamo che le frequenze associate ai modi flessionali, nel piano (x,z) e (x,y) rispettivamente, differiscono di qualche ordine di grandezza, per cui si può considerare una rigidezza flessionale associata al modo nel piano (x,y) trascurabile rispetto a alle altre in gioco.\\
+Essendo il problema bidimensionale (3 gdl), abbiamo bisogno di 3 variabili per descrivere completamente il moto,2 traslazioni e 1 rotazione; tuttavia poichè la normale $\bf n$ al corpo in ogni punto è ortogonale alla funzione di forma $\bf\psi$, associata al modo di vibrare in direzione longitudinale, dalla definizione delle forze aerodinamiche generalizzate è possibile trascurare il grado di libertà del corpo in quella direzione.\\
+Si scelgono quindi come variabili lagrangiane lo spostamento verticale $h_{0}$ di un punto della struttura ({\itshape plunge}), e l'angolo d'attacco $\alpha$ positivo orario.\\
+Il modello ottenuto è detto {\itshape sezione tipica}.\\
+Viene riportata in figura la struttura modellizzata.\\  
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/immaginees2}
+\end{figure}\\
+dove:\\
+$\bullet$\quad A=centro aerodinamico\\
+$\bullet$\quad E=il centro elastico\\
+$\bullet$\quad G=il centro di massa\\
+$\bullet$\quad O=l'origine del sistema di riferimento\\
+$\bullet$\quad $h_{0}$=lo spostamento vericale del punto O, positivo verso il basso (plange)\\
+$\bullet$\quad $\alpha$=l'angolo di attacco , positivo orario\\\\
+Le equazioni di Lagrange linearizzate, per il caso non smorzato, sono:\\\\ 
+$$
+\left[
+\begin{matrix}
+m&mx_{G} \\ mx_{G}&mx_{G}+J_{G}
+
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+\ddot{h_{0}}\\ \ddot{\alpha}
+\end{array}
+\right]
++
+\left[
+\begin{matrix}
+k_{h}&k_{h}x_{E} \\ k_{h}x_{E}&k_{\alpha}+k_{h}x_{E}^2
+
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h_{0}\\ \alpha
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+-L\\ M_{A}-Lx_{A}
+\end{array}
+\right]
+$$\\\\
+dove:\\
+$\bullet$\quad m= massa per unità di apertura alare\\
+$\bullet$\quad $J_{G}$= momento di inerzia principale, per unità di apertura alare, calcolato rispetto al punto G\\ 
+$\bullet$\quad $k_{h}, k_{\alpha}$= costanti elastiche delle molle flessionale e torsionale rispettivamente\\
+$\bullet$\quad $x_{A}, x_{E}, x_{G}$= ascisse del centro aerodinamico, elastico e di massa rispettivamente\\
+$\bullet$\quad L=portanza (positiva verso l'alto)\\
+$\bullet$\quad $M_{A}$= momento aerodinamico calcolato rispetto ad A (positivo orario)\\
+$\bullet$\quad $\rho$= densità dell'aria\\
+$\bullet$\quad b= metà della corda\\
+$\bullet$\quad U= velocità del flusso indisturbato\\
+Per quanto riguarda i termini aerodinamici di portanza e momento (quest'ultimo valutato rispetto al quarto di corda), di questo tipo di modello (sezione tipica) si fornisce l'espressione analitica ottenuta tramite la teoria di {\itshape Theodorsen}:\\\\
+$$L=\pi\rho b^2(\ddot{h}_{0}+\frac{1}{2}b\ddot{\alpha}+U\dot{\alpha})+2\pi\rho UbC(k)(\dot{h}_{0}+b\dot{\alpha}+U\alpha)$$
+$$M_{A}=-\pi\rho b^3 (\frac{1}{2}\ddot{h}_{0}+\frac{3}{8}b\ddot{\alpha}+U\dot{\alpha})$$\\\\
+dove $k$ è la frequenza ridotta $k=\frac{\omega b}{U}$ e $C(k)$ è la funzione complessa di {\itshape Theodorsen}  cosi definita:\\\\
+$$C(k)=\frac{H_{1}^{(2)}(k)}{H_{1}^{(2)}(k)+jH_{0}^{(2)}(k)}$$\\\\
+dove le $H_{n}^{(2)}=J_{n}-jY_{n}$ ($n=0,1$) è la funzione di H$\ddot{a}$nkel del secondo tipo di ordine n, dove le $J_{n}$ e le $Y_{n}$ sono le funzioni di Bessel del primo e secondo tipo, rispettivamente, di ordine n.
+
+Scegliamo l'origine del sistema di riferimento coincidente col punto A in modo da avere $x_{A}=0$.\\
+Al fine di ottenere le equazioni del moto in forma non dimensionale, dividiamo la prima equazione del sistema per la forza per unità di apertura $mb\omega_{\alpha}^2$, dove $\omega_{\alpha}^2=k_{\alpha}/J_{\alpha}$, con $J_{\alpha}$ momento di inerzia calcolato rispetto al centro elastico E. La seconda equazione del sistema la dividiamo per il momento per unità di apertura $mb^2\omega_{\alpha}^2$.\\
+Introduciamo le seguenti quantità non dimensionali:\\\\
+$$h=\frac{h_{o}}{b},\quad \hat{t}=\frac{tU}{b},\quad a=\frac{m}{\pi\rho b^2},\quad \hat{U}=\frac{U}{b\omega_{\alpha}}$$\\
+$$\xi_{E}=\frac{x_{E}}{b},\quad \xi_{G}=\frac{x_{G}}{b},\quad r_{\alpha}^2=\frac{J_{\alpha}}{mb^2},\quad\Omega^2=\frac{\omega_{h}^2}{\omega_{\alpha}^2} $$\\\\
+Passando nel dominio di Laplace il sistema delle equazioni del moto diventa:\\\\
+\begin{multline}
+\Bigg\{
+p^2\hat{U}^2
+\left[
+\begin{matrix}
+(1+\frac{1}{a})&(\xi_{G}\frac{1}{2a}) \\ (\xi_{G}\frac{1}{2a})&(r_{\alpha}^2-\xi_{E}^2+2\xi_{E}\xi_{G}+\frac{3}{8a})
+\end{matrix}
+\right]
++p\hat{U}^2
+\left[
+\begin{matrix}
+0&\frac{1}{a} \\ 0&\frac{1}{a}
+\end{matrix}
+\right]
++
+\left[
+\begin{matrix}
+\Omega^2&\xi_{E}\Omega^2 \\ \xi_{E}\Omega^2&(\xi_{E}^2\Omega^2+r_{\alpha}^2)
+\end{matrix}
+\right]\\
++\hat{U}^2
+\left[
+\begin{matrix}
+\frac{2}{a}\tilde{C}(p)p&\frac{2}{a}\tilde{C}(p)+\frac{2}{a}\tilde{C}(p)p \\ 0&0
+\end{matrix}
+\right]
+\Bigg\}
+\left[
+\begin{array}{cc}
+\tilde{h}\\ \tilde{\alpha}
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+0\\0
+\end{array}
+\right]
+\end{multline}
+
+dove $\tilde{h}$ e $\tilde{\alpha}$ sono la trasformata di Laplace di $h$ e $\alpha$ , rispettivamente, e la funzione $\tilde{C}(p)$ ($p:= sb/U$) è la funzione di complessa di Theodorsen ottenuta usando $p$ al posto di $jk$.  
+\section{Confronto funzione di Theodorsen e Padè}
+Prima di addentrarci nell'analisi di stabilità e risposta della struttura in presenza di aerodinamica non stazionaria, viene qui riportato il confronto tra la funzione di {\itshape Theodorsen} ristretta solo al caso di $p=jk$, ottenuta a partire dalla combinazione delle funzioni di Bessel, ed l'approssimazione di questa tramite un rapporto di polinomi nella variabile $p$ (approssimazione di {\itshape Padè}).\\
+$$\tilde{C}(p)=\frac{1}{2}\frac{(p+0.135)(p+0.651)}{(p+0.0965)(p+0.4555)}$$
+Si riportano dapprima i risultati in forma grafica, ottenuti dall'implementazione su codice in ambiente Matlab, per poi procedere con qualche osservazione.\\
+In particolare vengono riportati in figura la parte reale e immaginaria della funzione di Theodorsen e l'approssimazione di Padè.
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/Theodorsenreal}
+	\caption{confronto funzione di {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte reale }
+\end{figure}
+\newpage
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/Theodorsenimag}
+	\caption{Confronto funzione di {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte immaginaria }
+\end{figure} 
+Si nota come la funzione di {\itshape Padè} approssima molto bene la funzione analitica di {\itshape Theodorsen} per $k\ge0.2$; mentre nell'intervallo di frequenze ridotte $k\in[0;0.2]$, si nota un certo disaccordo.
+Questo implica che l'approssimazione di {\itshape Padè}, nel caso di aerodinamica non stazionaria in cui $k\ge0.2$, può essere utilizzata in alternativa a quella di {\itshape Theodorsen}.\par  
+Un ulteriore confronto delle due funzioni viene effettuato, calcolando il valore critico della $\hat{U}$.\\
+Partendo dall'equazione caratteristica del sistema di equazioni del moto nel dominio di Laplace, con ($p\rightarrow jk$, per la condizione critica), e sviluppando il determinante del sistema, si ottiene:\\
+$$a(k)\hat{U}^4+b(k)\hat{U}^2+c(k)=0$$
+ovvero indicando con $f(k)=\hat{U}$ si ha:\\
+$$\hat{U}^2=f_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$ \\\\
+In particolare dall'uguaglianza appena ricavata $f=f(k)$ deve essere tale che $Imag(f(k))=0$ per un certo valore di k.\\
+Le soluzioni $f_{1,2}$, parte reale e immaginaria, calcolate utilizzando prima la funzione di {\itshape Theodorsen} e poi la sua approssimazione ({\itshape Padè}), vengono riportate nelle figura sottostanti.
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/f1re}
+	\caption{Confronto di $f_{1}(k)$ {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte reale}
+\end{figure}\quad
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/f2re}
+	\caption{Confronto di $f_{1}(k)$ {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte immaginaria }
+\end{figure} \\ 
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/f1im}
+	\caption{Confronto di $f_{2}(k)$ {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte reale}
+\end{figure}\quad
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/f2im}
+	\caption{Confronto di $f_{2}(k)$ {\itshape Theodorsen} e approssimazione di {\itshape Padè}, parte immaginaria }
+\end{figure}
+\newpage
+Si osserva come la parte immaginaria, in entrambi i casi, della $f_{1}$ si annulli in corrispondenza della frequenza ridotta $k=0.65$.\\In questo caso siamo in presenza del fenomeno del {\itshape flutter} in particolare la velocità adimensionale critica è paria a $\hat{U}_{F}=1.1700$.\\
+Per quanto riguarda $f_{2}$, invece, si osserva come la parte immaginaria di quest'ultima si annulla in corrispondenza di una frequenza ridotta nulla $k=0$, che corrisponde al fenomeno di {\itshape divergenza} aeroelastica.\\ La velocità adimensionale in cui si incorre nel fenomeno di divergenza è pari a $\hat{U}_{D}=1.4515$ nel caso di funzione di Theodorsen e $\hat{U}_{D}=1.4425$.\\
+Si nota come i valori critici ottenuti nell'ultimo caso differiscano tra loro di circa $1\%$.\\
+L'ultima osservazione va fatta sugli andamenti della parte reale e immaginaria di entrambe le funzioni $f_{1}$ e $f_{2}$, si nota infatti come l'andamento di $f_{1}$, sia la sua parte reale che quella immaginaria, non manifesta nessuna differenza significativa, per nessun valore della frequenza ridotta, tra il caso in cui si è usata la funziona di Theodorsen analitica e quella approssimata.\\
+La stessa cosa non si può affermare per la funzione $f_{2}$, si nota infatti come in questo caso, nel range di k che va da $0$ a $\approx 0.2$ le funzioni presentano valori discretamente dissimili.
+\section{Stabilità aerodinamica non stazionaria}
+In questa sezione verrà condotta l'analisi di stabilità, attraverso l'uso del luogo delle radici.\\
+In questo caso le equazioni di Lagrange ricavate nella sezione {\itshape  Formulazione del problema}, vengono riscritte nel dominio del tempo, in forma normale, aggiungendo delle variabili di stato aggiuntive, in modo da ottenere un sistema di sei equazioni differenziali al primo ordine.\\
+Introduciamo quindi le seguenti variabili $\dot{h}$, $\dot{\alpha}$, $\beta$ e $\dot{\beta}$, con $\beta$ cosi definito:\\
+$$\beta=\frac{2}{a}\tilde{C}_{1}(p)[p\tilde{h}+(1+p)\tilde{\alpha}]$$
+dove $\tilde{C}_{1}$ è la frazione propria della funzione di Theodorsen approssimata.\\
+Ricordiamo:\\
+$$a=5,\quad \Omega=0.5,\quad \xi_{E}=0.30,\quad \xi_{G}=0.45,\quad r_{\alpha}^2=0.25$$
+Una volta scritto in forma di stato, possiamo calcolarci il luogo delle radici, che viene riportato in figura 7.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/rlocusin}
+	\caption{Luogo delle radici, aerodinamica non stazionaria }
+\end{figure} 
+\newpage
+Per $\hat{U}\rightarrow0$ il poli presentano tutti una parte reale negativa, il sistema è asintoticamente stabile, si nota inoltre la presenza di un asintoto, infatti 4 dei 6 poli presenti sul luogo per velocità prossime allo $0$ presentano una parte immaginaria tendente all'infinito.\\
+All'aumentare della velocità adimensionale i poli a parte immaginaria non nulla con parte reale minore in modulo, cominciano a spostarsi verso l'asse immaginario del piano complesso, finchè per $\hat{U}=1.17$ lo attraversano ($k=0.65$), dando origine al fenomeno del {\itshape flutter}. Anche i poli che si trovavano sull'asse reale, all'aumentare di $\hat{U}$, cominciano a spostarsi verso destra restando confinati sempre sull'asse reale, fino a quando per $\hat{U}=1.4426$, un polo attraversa l'asse immaginario nell'origine dando origine al fenomeno della {\itshape divergenza} aeroelastica.\\
+Infine si osserva come, per alti valori della velocità dimensionale, i poli comèplessi e coniugati, che in precedenza avevano dato luogo al fenomeno del flutter, tendono ad attraversare l'asse immaginario nuovamente, ad una frequenza minore, per portarsi dalla parte negativa del piano; tuttavia non possiamo parlare di stabilità, poichè anche in queste condizioni, la presenza di un polo sul semipiano positivo rende il sistema instabile.\\ 
+Riassumendo di ha:\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		$k_{F}=$& 0.6557 \\
+		\hline
+		$\hat{U}_{F}=$&1.1701 \\
+		\hline
+		$k_{D}=$&0 \\
+		\hline
+		$\hat{U}_{D}=$&1.4426 \\					
+		\hline
+	\end{tabular}
+\end{center} 
+\section{Stabilità aerodinamica quasi stazionaria}
+ In questa sezione si vuole studiare, attraverso l'uso del luogo delle radici, la stabilità del sistema, nel caso di aerodinamica quasi-stazionaria.\\
+ In particolare verrà studiata la stabilità del sistema considerando dapprima il caso di struttura non smorzata e poi smorzata.\\
+ Nel caso di aerodinamica quasi-stazionaria, possiamo supporre, che la funzione di Theodorsen sia pari a 1, $\tilde{C}(k)=1$, e che è possibile trascurare le derivate al secondo ordine nella definizione di forza e momento aerodinamico.\\
+ Ovvero:\\
+ $$L=\pi\rho b^2U\dot{\alpha}+2\pi\rho UbC(k)(\dot{h}_{0}+b\dot{\alpha}+U\alpha)$$
+ $$M_{A}=-\pi\rho b^3 U\dot{\alpha}$$\\\\
+ Sostituendo nelle equazioni di Lagrange i termini cosi ottenuti, e ponendo a zero il polinomio caratteristico scritta nel dominio di Laplace è possibile calcolare il luogo delle radici.
+ \newpage
+ \subsection{Caso struttura non smorzante}
+ Viene riportato il luogo delle radici del sistema in assenza di smorzamento strutturale.
+ \begin{figure}[htbp!]
+ 	\centering	
+ 	\includegraphics[width=120mm]{Immagini/rlocusqsnd}
+ 	\caption{Luogo delle radici, aerodinamica quasi-stazionaria, in assenza di smorzamento strutturale }
+ \end{figure}\\
+  Il luogo delle radici presenta due asintoti verticali, in corrispondenza dei quali si posizionano i quattro poli, complessi coniugati a coppie, per velocità dimensionale prossima allo zero.\\
+  All'aumentare di $\hat{U}$, si osserva come la coppia di poli con parte reale minore in modulo tenda ad attraversare l'asse immaginario in corrispondenza di una frequenza $k=5.9731$. In particolare per $\hat{U}=0.1790$ si ha l'attraversamento dell'asse e l'origine del fenomeno di instabilità dinamica (flutter). Per quanto riguarda l'altra coppia di poli complessi e coniugati, si osserva come all'aumentare di $\hat{U}$ tenda a coalescere sull'asse reale nella parte di semipiano negativo, per poi separarsi muovendosi in verso opposto restando sempre sull'asse reale.\\ Per $\hat{U}=1.4430$, si osserva come la radice che si muove verso destra attraversi l'asse immaginario nell'origine, dando luogo all'instabilità statica detta divergenza aeroelastica.
+  \subsection{Caso struttura smorzante}
+  Si riportano i risultati del caso smorzato, avendo posto come smorzamento strutturale $\mu=0.005$.\\
+  \begin{figure}[htbp!]
+  	\centering	
+  	\includegraphics[width=120mm]{Immagini/rlocusqsd}
+  	\caption{Luogo delle radici, aerodinamica quasi-stazionaria, con smorzamento strutturale }
+  \end{figure}\\
+ Nel caso in presenza di smorzamento strutturale, si osserva come i poli a più alta frequenza, all'aumentare di $\hat{U}$, tendono verso il semipiano positivo del piano complesso.\\ In particolare,  per $\hat{U}_{F}=0.6087$, attraversano l'asse immaginario in prossimità di $k=1.6408$, dando origine all'instabilità dinamica del {\itshape flutter}. Per quanto riguarda le radici a frequenza minore, si osserva come all'aumentare di $\hat{U}$, tendano a coalescere sull'asse reale, per separarsi, muovendosi di verso opposto.\\ La radice che viagga verso destra, per un certo valore di $\hat{U}_{D}=1.4430$, attraversa l'asse immaginario nell'origine, dando luogo al fenomeno di {\itshape divergenza} aeroelastica.\\  
+ Riassumendo di ha:\\
+ $\bullet$\quad {\bf Caso non smorzato}
+ \begin{center}
+ 	\begin{tabular}{c c}
+ 		\hline
+ 		$k_{F}=$& 5.9731 \\
+ 		\hline
+ 		$\hat{U}_{F}=$&0.1790 \\
+ 		\hline
+ 		$k_{D}=$&0 \\
+ 		\hline
+ 		$\hat{U}_{D}=$&1.4430 \\					
+ 		\hline
+ 	\end{tabular}
+ \end{center} 
+$\bullet$\quad {\bf Caso smorzato}
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		$k_{F}=$& 1.6408 \\
+		\hline
+		$\hat{U}_{F}=$&0.6087 \\
+		\hline
+		$k_{D}=$&0 \\
+		\hline
+		$\hat{U}_{D}=$&1.4434 \\					
+		\hline
+	\end{tabular}
+\end{center} 
+\section{Risposta libera}
+\subsection{Risposta sub-critica}
+Si vuole calcolare la risposta libera della struttura trattata nel caso di aerodinamica non stazionaria, nella situazione in cui $\hat{U}=0.8\cdot\hat{U}_{F}=0.936$.\\
+Per fare questo bisogna ricondurre il sistema di equazioni di Lagrange del secondo ordine ottenuto precedentemente in un sistema del primo ordine, al fine di ottenere le coordinate lagrangiane funzione del tempo.\\ In particolare considerando come vettore di stato:\\\\
+$$ \textbf{y}(t)=
+\left[
+\begin{array}{cccccc}
+h(t)\\ \alpha(t) \\ \dot{h}(t)\\ \dot{\alpha}(t)\\ \beta(t)\\ \dot{\beta}(t)
+\end{array}
+\right]
+$$\\\\
+il sistema viene riscritto in forma normale:\\\\
+$$\dot{\textbf{y}}=\textbf{A}
+\textbf{y}$$\\\\
+con \textbf{A} matrice di stato.
+Dato che gli autovettori $\textbf{u}_{k}$, con $k=1,..,6$, associati al sistema $\dot{\textbf{y}}=\textbf{A}
+\textbf{y}$, sono tra di loro indipendenti, rappresentano una base per cui, per il teorema generalizzato di Fourier, possiamo rappresentare qualsiasi funzione come combinazione lineare di questi attraverso opportuni coefficienti;\\
+in particolare possiamo scrivere:\\\\
+$$\textbf{y}(t)=\sum\limits_{k=1}^{6} c_{k}\textbf{u}_{k} e^{s_{k}t} $$\\
+dove $c_{k}$ sono opportuni coefficienti che dipendono dalle condizioni iniziali, e gli $s_{k}$ sono gli autovalori della matrice di stato $\textbf{A}$.\\
+Per quanto riguarda la risposta, ricordiamo che essa sarà data da:\\\\
+$$w(x,t)=\sum\limits_{n=1}^{2} \psi_{n}(x)q_{n}(t) $$\\\\
+dove le $\psi_{n}$ sono opportune funzioni di forma scelte per discretizzare il problema.\\
+Considerando le seguenti condizioni iniziali:\\
+$$ h_{0}=1,\quad \alpha_{0}=0,\quad \dot{h}_{0}=0,\quad \dot{\alpha}_{0}=0,\quad \beta_{0}=0,\quad \dot{\beta}_{0}=0$$\\\\
+e considerando sempre gli stessi parametri:\\
+$$a=5,\quad \Omega=0.5,\quad \xi_{E}=0.30,\quad \xi_{G}=0.45,\quad r_{\alpha}^2=0.25,\quad \mu=0.005$$
+Le componenti temporali della risposta libera del sistema con $\hat{U}=0.8\cdot\hat{U}_{F}=0.936$ sono:\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/satstab}
+	\caption{Andamento temporale delle componenti $h(t)$ e $\alpha(t)$, caso statible }
+\end{figure}
+\newpage
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/velstab}
+	\caption{Andamento temporale delle componenti $\dot{h}(t)$ e $\dot{\alpha}(t)$, caso statible }
+\end{figure}
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/aerostab}
+	\caption{Andamento temporale delle componenti $\beta(t)$ e $\dot{\beta}(t)$, caso statible }
+\end{figure}
+Si nota come le componenti mostrano un comportamento pseudoperiodico stabile ad elevato periodo.\\
+Si nota inoltre come le componenti siano tra loro sfasate. In particolare si osserva come la component $h(t)$ sia sfasata di circa $\frac{\pi}{4}$ rispetto alla componente $\alpha$; stessa cosa dicasi per le rispettive velocità.\\
+Infine si riportano in tabella i valori degli autovalori ottenuti e le costanti moltiplicative $c_{k}$, $k=1,..,6$.
+\begin{center}
+	\begin{tabular}{c}
+		\hline
+		$c_{k}$ \\
+		\hline
+		
+		  -0.0021 - 0.0019i\\
+		  -0.0021 + 0.0019i\\
+		   0.0045 - 0.0019i\\
+		   0.0045 + 0.0019i\\
+		   0.0015 + 0.0000i\\
+		  -0.0011 + 0.0000i\\
+		
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{c}
+		\hline
+		$s_{k}$ \\
+		\hline
+		-0.0584 + 0.8973i\\
+		-0.0584 - 0.8973i\\
+		-0.1947 + 0.5263i\\
+		-0.1947 - 0.5263i\\
+		-0.3723\\
+		-0.0722\\
+		
+		\hline
+	\end{tabular}
+\end{center}
+ 
+\subsection{Risposta super-critica}
+Si vuole determinare la risposta libera della struttura, come nel caso precedente, ad eccezione del fatto che in questo caso verrà scelto un $\hat{U}=1.2\cdot\hat{U}_{F}=1.404$.\\
+Con procedimento analogo al caso precedente si riportano direttamente i risultati ottenuti:\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/satinstab}
+	\caption{Andamento temporale delle componenti $h(t)$ e $\alpha(t)$, caso instatible }
+\end{figure}
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/velinstab}
+	\caption{Andamento temporale delle componenti $\dot{h}(t)$ e $\dot{\alpha}(t)$, caso instatible }
+\end{figure}
+\newpage
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=120mm]{Immagini/aeroinstab}
+	\caption{Andamento temporale delle componenti $\beta(t)$ e $\dot{\beta}(t)$, caso instatible }
+\end{figure}
+Si nota come in questo caso l'andamento temporale delle componenti $h(t)$ e $\alpha(t)$, presentano un comportamento oscillatorio divergente, e quindi instabile dal punto di vista dinamico, che potrebbe portare al collasso della struttura.\\
+Tuttavia bisogna osservare che i tempi di divergenza sono piuttosto lunghi, per cui in una situazione di questo tipo, il pilota potrebbe avrebbe il tempo di ridurre la velocità al fine di stabilizzare il moto divergente del velivolo.\\
+Infine si riportano in tabella i valori degli autovalori ottenuti e le costanti moltiplicative $c_{k}$, $k=1,..,6$.
+\begin{center}
+	\begin{tabular}{c}
+		\hline
+		$c_{k}$ \\
+		\hline
+		
+   0.0025 + 0.0007i\\
+   0.0025 - 0.0007i\\
+   0.0015 + 0.0019i\\
+   0.0015 - 0.0019i\\
+   0.0048\\
+   0.0029 \\
+		
+		\hline
+	\end{tabular}
+\end{center}
+\begin{center}
+	\begin{tabular}{c}
+		\hline
+		$s_{k}$ \\
+		\hline
+		0.0429 + 0.5123i\\
+		0.0429 - 0.5123i\\
+		-0.3985 + 0.3456i\\
+		-0.3985 - 0.3456i\\
+		 -0.0074\\
+		 -0.2322\\
+
+		
+		\hline
+	\end{tabular}
+\end{center}
+
+
+\section{Confronto dei risultati con esercitazione 2}
+In questa sezione verranno effettuati i confronti dei risultati ottenuti con quelli dell' {\itshape Esercitazione 2}.\\
+Nella prima sotto-sezione si procederà con il confronto dei vari modelli adottati nello studio della stabilità della sezione tipica; mentre nella seconda parte verranno confrontati i risultati ottenuti, nello studio di stabilità, del velivolo dell'aviazione generale della seconda esercitazione, con quelli che saranno ricavati adottando un modello aerodinamico non stazionario.\\
+\subsection{Confronto sezione tipica}
+Vengono riportati in tabella i relativi casi con i valori critici ottenuti, sia nel caso di divergenza aeroelastica che nel flutter.\\
+In particolare viene indicato con:\\\\
+$\bullet$\quad {\bf ASNS}= Aerodinamica stazionaria, struttura non smorzata.                 \\
+$\bullet$\quad {\bf AQSS}$_{pl}$= Aerodinamica quasi-stazionaria, struttura smorzata, modello $\alpha=\alpha(\dot{h})$.                 \\
+$\bullet$\quad {\bf ANSS}= Aerodinamica non stazionaria, struttura smorzata.                 \\
+$\bullet$\quad {\bf AQSNS}$_{Th}$= Aerodinamica quasi-stazionaria, struttura non smorzata, modello $\tilde{C}_{k}\rightarrow1$.                \\
+$\bullet$\quad {\bf AQSS}$_{Th}$= Aerodinamica quasi-stazionaria, struttura smorzata, modello $\tilde{C}_{k}\rightarrow1$.                 \\\\
+
+
+
+
+\begin{center}
+	\begin{tabular}{lcccc}
+		\hline
+		\hline
+		{\bf Caso} & $k_{F}$& $\hat{U}_{F}$& $k_{D}$& $\hat{U}_{D}$\\
+		\hline
+		{\bf ASNS}   &  0.6640  &  0.7932 & 0 & 1.4434\\
+		\hline
+		{\bf AQSS}$_{pl}$& 0.7871&  0.7407 & 0& 1.4434\\
+		\hline
+		{\bf ANSS}&0.6557&1.1701&0&1.4426\\
+		\hline
+		{\bf AQSNS}$_{Th}$&5.9731&0.1790&0&1.4430\\
+		\hline
+		{\bf AQSS}$_{Th}$&1.6408&0.6087&0&1.4434\\
+		\hline
+		\hline
+	\end{tabular}
+\end{center}
+Si nota come, indipendentemente dal caso, la velocità adimensionale di divergenza aeroelastica sia sempre intorno a $1.4434$. Questo porta a concludere che qualsiasi modello adottato per l'aerodinamica, per valori di $p\rightarrow0$, approssima molto bene la soluzione.\\
+Per quanto riguarda l'instabilità dinamica, il discorso cambia.\\ Dato che i valori sono piuttosto differenti la scelta di un modello aerodinamico rispetto ad un altro diventa piuttosto importante.\\
+Si nota come i valori delle frequenze ridotte, in condizioni di flutter, oscillano tra $0.65$ e $1.653$, con un valore isolato di $5.9731$ nel caso di {\bf AQSNS}$_{Th}$.\\ Quest'ultimo caso fornisce valori piuttosto dissimili rispetto a quelli globalmente ottenuti.\\ Infatti si nota come quest'ultimo presenti una velocità adimensionale di flutter relativamente bassa, $U_{F}=0.1790$, rispetto agli altri valori che oscillano tra $0.75$ e $1.17$.\\
+Si nota inoltre come i casi {\bf ASNS} e {\bf AQSS} presentano valori simili di velocità adimensionale, differendo tra loro del $5.25\%$. Lo stesso non vale per le frequenze ridotte corrispondenti.\\
+Un ultima osservazione va fatta sui valori delle $k_{F}$, nei casi {\bf ASNS} e {\bf ANSS}; si nota infatti come le rispettive frequenze di flutter siano molto vicine tra loro, differendo l'una rispetto all'altra dello $0.83\%$.
+
+\subsection{Confronto velivolo aviazione generale}
+In questa sezione viene effettuato il confronto, in termini di velocità adimensionali e frequenze ridotte critiche, di un velivolo dell'aviazione generale, schematizzato come una superficie portante ad alto rapporto di allungamento, nel caso di aerodinamica stazionaria (esercitazione 2) e nel caso di aerodinamica non stazionaria.\\
+Ricordiamo che per il veivolo dell'aviazione generale al livello del mare ($\rho=1.22kg/m^3$) si ha:\\
+$$a=8.084,\quad \Omega=0.5,\quad \xi_{E}=0.5,\quad \xi_{G}=0.167,\quad r_{\alpha}^2=0.1365$$\\\\
+Prima di effettuare il confronto tra il caso di aerodinamica stazionaria e non, dobbiamo studiare la stabilità, al solito con l'uso del luogo delle radici, del velivolo in condizione di instazionarietà aerodinamica, considerando la funzione di Theodorsen approssimata (Padè).\\
+\newpage
+Viene riportato il luogo delle radici:\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocusvelivolo}
+	\caption{Luogo delle radici, aerodinamica non stazionaria, velivolo aviazione generale}
+\end{figure}\\
+Si nota come a partire da una condizione iniziale in cui $\hat{U}\approx 0$, le radici che si trovano sull'asse cominciano a muoversi verso destra, mentre la coppia di poli, complessi coniugati , a parte reale elevata i modulo, coalescono sull'asse reale per poi muoversi di verso opposto sullo stesso all'aumentare di $\hat{U}$.\\
+Per quanto riguarda l'altra coppia di poli complessi coniugati, a parte reale minore in modulo, si nota come questi tendano verso l'asse reale dapprima verso sinistra e poi ripiegando verso destra. La situazione critica viene raggiunta in corrispondenza di $U_{D}=1.0505$, da parte del polo che inizialmente ($\hat{U}\approx0$) si trovava a $p\approx -0.45$, dando origine al fenomeno di divergenza aeroelastica.\\
+Si nota come anche in questo caso sia assente il fenomeno del flutter.\\
+Osserviamo come il valore ottenuto della $U_{D}$ nel caso di aerodinamica non stazionaria risulta essere lo stesso del caso di aerodinamica stazionaria.\\
+Daltronde, nella sezione precedente avevamo già osservato come per $p\rightarrow0$, la velocità di divergenza aeroelastica, se esiste, risulta essere indipendente dal tipo di modellizazione.\\
+
+\end{document}
