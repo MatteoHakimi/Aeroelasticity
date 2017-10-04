@@ -1,0 +1,575 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Aeroelasticità \\ Esercitazione 2 \\ Prof.re Franco Mastroddi}
+\author{Matteo Hakimi\\ 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduzione}
+Si vuole studiare la stabilità, e la risposta libera, di una superficie portante sottile investita da una corrente, attraverso il calcolo del luogo delle radici costruito mettendo a parametro la velocità adimensionale $\hat{U}$.\\
+Lo studio della stabilità inizialmente verrà condotto ipotizzando un'aerodinamica stazionaria, condiderando il caso di struttura non smorzata.\\
+In seguito si procederà con l'analisi di stabilità, della stessa struttura, considerando il caso di aerodinamica quasi-stazionaria, ipotizzando questa volta che la struttura sia smorzata.\\
+Infine, considerando il caso di aerodinamica quasi-stazionaria, si prenderà in analisi il caso di un velivolo dell'aviazione generale; dopo averlo opportunamente modelizzato come una superficie portante sottile si procederà con lo studio di stabilità, utilizzando i risultati dei casi precedenti.\\
+
+
+ 
+
+
+
+
+
+\section{Formulazione del problema}
+La superficie portante sottile viene modellata come se fosse una lastra piana rigida ad elasticità concentrata.\\
+In particolare le rigidezza flessionale e torsionale della struttura vengono sostituite con delle molle concentrate, applicate nel punto ascissa $x_{e}$  corrispondente al centro elastico di questa, che simulano il comportamento elastico della stessa.\\
+Tuttavia nel caso preso in considerazione, sappiamo che le frequenze associate ai modi flessionali, nel piano (x,z) e (x,y) rispettivamente, differiscono di qualche ordine di grandezza, per cui si può considerare una rigidezza flessionale associata al modo nel piano (x,y) trascurabile rispetto a alle altre in gioco.\\
+Essendo il problema bidimensionale (3 gdl), abbiamo bisogno di 3 variabili per descrivere completamente il moto, 2 traslazioni e 1 rotazione; tuttavia poichè la normale $\bf n$ al corpo in ogni punto è ortogonale alla funzione di forma $\bf\psi$, associata al modo di vibrare in direzione longitudinale, dalla definizione delle forze aerodinamiche generalizzate è possibile trascurare il grado di libertà del corpo in quella direzione.\\
+Si scelgono quindi come variabili lagrangiane lo spostamento verticale $h_{0}$ di un punto della struttura (plunge), e l'angolo d'attacco $\alpha$ positivo orario.\\
+Viene riportata in figura la struttura modellizzata.\\  
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/immaginees2}
+	\caption{Sezione tipica}
+\end{figure}
+\newpage
+dove:\\
+$\bullet$\quad A=centro aerodinamico\\
+$\bullet$\quad E=il centro elastico\\
+$\bullet$\quad G=il centro di massa\\
+$\bullet$\quad O=l'origine del sistema di riferimento\\
+$\bullet$\quad $h_{0}$=lo spostamento vericale del punto O, positivo verso il basso (plunge)\\
+$\bullet$\quad $\alpha$=l'angolo di attacco , positivo orario\\\\
+Le equazioni di Lagrange linearizzate, per il caso non smorzato, sono:\\\\ 
+$$
+\left[
+\begin{matrix}
+m&mx_{G} \\ mx_{G}&mx_{G}+J_{G}
+
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+\ddot{h_{0}}\\ \ddot{\alpha}
+\end{array}
+\right]
++
+\left[
+\begin{matrix}
+k_{h}&k_{h}x_{E} \\ k_{h}x_{E}&k_{\alpha}+k_{h}x_{E}^2
+
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h_{0}\\ \alpha
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+-L\\ M_{A}-Lx_{A}
+\end{array}
+\right]
+$$\\\\
+dove:\\
+$\bullet$\quad m= massa per unità di apertura alare\\
+$\bullet$\quad $J_{G}$= momento di inerzia principale, per unità di apertura alare, calcolato rispetto al punto G\\ 
+$\bullet$\quad $k_{h}, k_{\alpha}$= costanti elastiche delle molle flessionale e torsionale rispettivamente\\
+$\bullet$\quad $x_{A}, x_{E}, x_{G}$= ascisse del centro aerodinamico, elastico e di massa rispettivamente\\
+$\bullet$\quad L=portanza (positiva verso l'alto)\\
+$\bullet$\quad $M_{A}$= momento aerodinamico calcolato rispetto ad A (positivo orario)\\
+$\bullet$\quad $\rho$= densità dell'aria\\
+$\bullet$\quad b= metà della corda\\
+$\bullet$\quad U= velocità del flusso indisturbato\\
+
+Scegliamo l'origine del sistema di riferimento coincidente col punto A in modo da avere $x_{A}=0$.\\
+Al fine di ottenere le equazioni del moto in forma non dimensionale, dividiamo la prima equazione del sistema per la forza per unità di apertura $mb\omega_{\alpha}^2$, dove $\omega_{\alpha}^2=k_{\alpha}/J_{\alpha}$, con $J_{\alpha}$ momento di inerzia calcolato rispetto al centro elastico E. La seconda equazione del sistema la dividiamo per il momento per unità di apertura $mb^2\omega_{\alpha}^2$.\\
+Introducendo le seguenti quantità non dimensionali:\\\\
+$$h=\frac{h_{o}}{b},\quad \hat{t}=\omega_{\alpha}t,\quad a=\frac{m}{\pi\rho b^2},\quad \hat{U}=\frac{U}{b\omega_{\alpha}}$$\\
+$$\xi_{E}=\frac{x_{E}}{b},\quad \xi_{G}=\frac{x_{G}}{b},\quad r_{\alpha}^2=\frac{J_{\alpha}}{mb^2},\quad\Omega^2=\frac{\omega_{h}^2}{\omega_{\alpha}^2} $$\\\\
+Il sistema delle equazioni del moto, nel caso di aerodinamica stazionaria, diventa:\\\\
+$$
+\left[
+\begin{matrix}
+1&\xi_{G} \\ \xi_{G}&r_{\alpha}^2-\xi_{E}+2\xi_{E}\xi_{G}
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+\ddot{h}\\ \ddot{\alpha}
+\end{array}
+\right]
++\Omega^2
+\left[
+\begin{matrix}
+1&\xi_{E} \\ \xi_{E}&\xi_{E}^2+r_{\alpha}^2/\Omega^2
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
++\hat{U}^2
+\left[
+\begin{matrix}
+0&2/a \\ 0&0
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
+=
+\bf 0
+$$\\\\
+ 
+\section{Stabilità aerodinamica stazionaria}
+In questa sezione di studierà la stabilità lineare del sistema, attraverso l'uso del luogo delle radici, considerando il caso di struttura non smorzata.\\
+Lo studio verrà condotto assumendo che la parte del sistema inerente all'aerodinamica, non dipenda dal tempo; in altri termini considereremo il caso di aerodinamica stazionaria.\\
+Per il caso di aerodinamica stazionaria e di struttura non smorzata si ha:\\\\
+$$
+\left[
+\begin{matrix}
+1&\xi_{G} \\ \xi_{G}&r_{\alpha}^2-\xi_{E}+2\xi_{E}\xi_{G}
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+\ddot{h}\\ \ddot{\alpha}
+\end{array}
+\right]
++\Omega^2
+\left[
+\begin{matrix}
+1&\xi_{E} \\ \xi_{E}&\xi_{E}^2+r_{\alpha}^2/\Omega^2
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
++\hat{U}^2
+\left[
+\begin{matrix}
+0&2/a \\ 0&0
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
+=
+\bf 0
+$$\\\\
+con:\\\\
+$$a=5,\quad \Omega=0.5,\quad \xi_{E}=0.30,\quad \xi_{G}=0.45,\quad r_{\alpha}^2=0.25$$
+Il luogo delle radici ottenuto in questo caso è rappresentato in figura\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocussa}
+	\caption{Luogo delle radici, aerodinamica stazionaria, in assenza di smorzamento strutturale }
+\end{figure}\\
+Si osserva come partendo da una situazione iniziale, in assenza di aerodinamica $\hat{U}=0$ (poli in nero sull'asse immaginario), i poli, e i rispettivi complessi coniugati, tendano a coalescere, per una data $\hat{U}_{F}$, sull'asse immaginario dando origine ad un moto oscillatorio divergente {\itshape flutter} ; si nota come all'aumentare di $\hat{U}$ le due radici si allontanano in due direzioni opposte e simmetriche rispetto all'asse immaginario stesso; aumentando ancora la $\hat{U}$ si vede come i poli coalescono sull'asse reale con i rispettivi complessi coniugati, a questo punto tutte le radici si trovano sull'asse reale, in particolare aumentando ancora il valore della velocità adimensionale i poli si cominciano a muovere di verso opposto dal punto di coalescenza, in particolare sia nella parte a parte reale positiva che negativa avremo due radici che si allontano tra loro una verso sinistra e l'altra verso destra.\\
+Per un certo valore di $\hat{U}=\hat{U}_{D}$ si osserva come la radice che si muove verso sinistra nella parte di piano a parte reale positiva coalesca nell'origine con quella che si muove verso destra nel semipiano negativo, questo è il cosiddetto fenomeno di {\itshape divergenza}; a questo punto le due radici, dovendo rispettare la simmetria rispetto l'asse reale, ritornano sull'asse immaginario dando origine, insieme alle altre due sull'asse reale, ad un moto di tipo oscillatorio divergente con periodo di oscillazione molto lungo.\\
+In particolare per quanto detto sopra si trova un $\hat{U}_{F}=0.7932$, in corrispondenza della variabile di Laplace adimensionale $\hat{s}=0.66399i$; per quanto riguarda la condizione di divergenza si ha $\hat{U}_{D}=1.4434$, ottenuta imponendo la $\hat{s}=0$ nell'equazione caratteristica associata al sistema si equazioni di Lagrange del moto.\\
+Riassumendo di ha:\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		$\hat{s}_{F}=$& 0.66399i \\
+		\hline
+		$\hat{U}_{F}=$&0.7932 \\
+		\hline
+		$\hat{s}_{D}=$&0 \\
+		\hline
+		$\hat{U}_{D}=$&1.4434 \\					
+		\hline
+	\end{tabular}
+\end{center} 
+ 
+
+\section{Stabilità aerodinamica quasi-stazionaria}
+In questa sezione verrà condotta l'analisi di stabilità, attraverso l'uso del luogo delle radici, considerando il caso di struttura smorzata.\\
+Nello studio che verrà effettuato, si è assunto il caso di aerodinamica quasi-stazionaria.\\
+In questo caso le equazioni di Lagrange ricavate nella sezione {\itshape  Formulazione del problema}, devono essere completate del termine smorzante, nonchè della parte dovuta all'aerodinamica quasi-stazionaria.\\
+In particolare per quanto riguarda il termine di {\itshape damping}, questo viene modellato con l'aggiunta della matrice $2\mu\Omega \bf I$ per il vettore $[\dot{h},\dot{\alpha}]^T$; mentre per quanto riguarda l'aerodinamica quasi-stazionaria un primo modello, piuttosto grossolano, che tenga in considerazione l'effetto di non stazionarietà, quello di considerare una variazione   dell'angolo di attacco $\alpha$ dovuta al plunge rate $\dot{h}$ in questo modo $\hat{\alpha}=\alpha+\dot{h}/U$.\\
+Il sistema di equazioni diventa:\\\\
+$$
+\textbf{M}
+\left[
+\begin{array}{cc}
+\ddot{h}\\ \ddot{\alpha}
+\end{array}
+\right]
++\textbf{K}
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
++\hat{U}^2 \textbf{F}
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
++2\mu\Omega\textbf{I}
+\left[
+\begin{array}{cc}
+\dot{h}\\ \dot{\alpha}
+\end{array}
+\right]
++\hat{U}\textbf{Q} 
+\left[
+\begin{array}{cc}
+\dot{h}\\ \dot{\alpha}
+\end{array}
+\right]
+=
+\bf 0
+$$\\\\
+dove:\\\\
+$$\textbf{M}=\left[
+\begin{matrix}
+1&\xi_{G} \\ \xi_{G}&r_{\alpha}^2-\xi_{E}+2\xi_{E}\xi_{G}
+\end{matrix}
+\right],\quad
+\textbf{K}=\Omega^2
+\left[
+\begin{matrix}
+1&\xi_{E} \\ \xi_{E}&\xi_{E}^2+r_{\alpha}^2/\Omega^2
+\end{matrix}
+\right],\quad$$\\\\
+
+$$\textbf{F}=\left[
+\begin{matrix}
+0&2/a \\ 0&0
+\end{matrix}
+\right],\quad
+\textbf{I}=\left[
+\begin{matrix}
+1&0 \\ 0&1
+\end{matrix}
+\right],\quad
+\textbf{Q}=\left[
+\begin{matrix}
+2/a&0 \\ 0&0
+\end{matrix}
+\right]$$\\\\
+con:\\\\
+$$a=5,\quad \Omega=0.5,\quad \xi_{E}=0.30,\quad \xi_{G}=0.45,\quad r_{\alpha}^2=0.25,\quad \mu=0.005$$
+Il luogo delle radici ottenuto in questo caso è rappresentato in figura.\\
+\newpage
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocusqsa}
+	\caption{Luogo delle radici, aerodinamica quasi-stazionaria, con smorzamento strutturale}
+\end{figure}
+Si osserva come i poli, in questo caso, in assenza di aerodinamica non si trovino sull'asse immaginario ma su uno parallelo ad esso e traslato nel semi piano negativo.\\
+All'aumentare della $\hat{U}$ si osserva come le due radici a maggior frequenza si spostano dapprima nella parte di semipiano a parte reale negativa per poi attraversare l'asse immaginario ad una $\hat{s}=\hat{s_{F}}= \pm0.787059i$ ($\hat{U}_{F}=0.7407$), dando origine all'istabilità dinamica di {\itshape flutter}; per quanto riguarda le radici a frequenza minore, si osserva come all'aumentare della $\hat{U}$ esse coalescano sull'asse reale nella parte di semipiano negativo, per poi separarsi e procedere in verso opposto, finchè la radice che procede verso destra incontra l'asse immaginario e lo attraversa; poichè il passaggio dell'asse immaginario avviene nell'origine, si è in presenza di un fenomeno di {\itshape divergenza} , ovvero della violazione della stabilità statica.\\
+Tale fenomeno si verifica in corrispondenza di $\hat{U}_{D}=1.4434$.\\
+Riassumendo di ha:\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		$\hat{s}_{F}=$& 0.787059i \\
+		\hline
+		$\hat{U}_{F}=$&0.7407 \\
+		\hline
+		$\hat{s}_{D}=$&0 \\
+		\hline
+		$\hat{U}_{D}=$&1.4434 \\					
+		\hline
+	\end{tabular}
+\end{center} 
+  
+  
+
+
+\subsection{Risposta sub-critica}
+Si vuole calcolare la risposta libera della struttura trattata nell'ultimo caso (aerodinamica quasi-stazionaria, struttura smorzata), nella situazione in cui $\hat{U}=0.8\cdot\hat{U}_{F}=0.59256$.\\
+Per fare questo bisogna ricondurre il sistema di equazioni di Lagrange del secondo ordine ottenuto precedentemente in un sistema del primo ordine, al fine di ottenere le coordinate lagrangiane funzione del tempo.\\ In particolare considerando come vettore di stato:\\\\
+$$ \textbf{y}(t)=
+\left[
+\begin{array}{cccc}
+h(t)\\ \alpha(t) \\ \dot{h}(t)\\ \dot{\alpha}(t)
+\end{array}
+\right]
+$$\\\\
+il sistema riscirtto in forma normale diventa:\\\\
+$$\dot{\textbf{y}}=\left[
+\begin{matrix}
+0&\textbf{I} \\ -\textbf{M}^{-1}(\textbf{K}+\hat{U}^2\textbf{F})&-\textbf{M}^{-1}(2\mu\Omega\textbf{I}+\hat{U}\textbf{Q})
+\end{matrix}
+\right]
+\textbf{y}$$\\\\
+dove:\\\\
+$$\textbf{M}=\left[
+\begin{matrix}
+1&\xi_{G} \\ \xi_{G}&r_{\alpha}^2-\xi_{E}+2\xi_{E}\xi_{G}
+\end{matrix}
+\right],\quad
+\textbf{K}=\Omega^2
+\left[
+\begin{matrix}
+1&\xi_{E} \\ \xi_{E}&\xi_{E}^2+r_{\alpha}^2/\Omega^2
+\end{matrix}
+\right],\quad$$\\\\
+
+$$\textbf{F}=\left[
+\begin{matrix}
+0&2/a \\ 0&0
+\end{matrix}
+\right],\quad
+\textbf{I}=\left[
+\begin{matrix}
+1&0 \\ 0&1
+\end{matrix}
+\right],\quad
+\textbf{Q}=\left[
+\begin{matrix}
+2/a&0 \\ 0&0
+\end{matrix}
+\right]$$\\\\
+
+in particolare si può scrivere:\\\\
+$$\dot{\textbf{y}}=\textbf{A}
+\textbf{y}$$\\\\
+con \textbf{A} matrice di stato.
+Dato che gli autovettori $\textbf{u}_{k}$, con $k=1,..,4$, associati al sistema $\dot{\textbf{y}}=\textbf{A}
+\textbf{y}$, sono tra di loro indipendenti, rappresentano una base per cui, per il teorema generalizzato di Fourier, possiamo rappresentare qualsiasi funzione come combinazione lineare di questi attraverso opportuni coefficienti; in particolare possiamo scrivere:\\\\
+$$\textbf{y}(t)=\sum\limits_{k=1}^{4} c_{k}\textbf{u}_{k} e^{s_{k}t} $$\\
+dove $c_{k}$ sono opportuni coefficienti che dipendono dalle condizioni iniziali, e gli $s_{k}$ sono gli autovalori della matrice di stato $\textbf{A}$.\\
+Per quanto riguarda la risposta, ricordiamo che essa sarà data da:\\\\
+$$w(x,t)=\sum\limits_{n=1}^{2} \psi_{n}(x)q_{n}(t) $$\\\\
+Considerando le seguenti condizioni iniziali:\\
+$$ h_{0}=1,\quad \alpha_{0}=0,\quad \dot{h}_{0}=0,\quad \dot{\alpha}_{0}=0$$\\\\
+e considerando sempre gli stessi parametri:\\
+$$a=5,\quad \Omega=0.5,\quad \xi_{E}=0.30,\quad \xi_{G}=0.45,\quad r_{\alpha}^2=0.25,\quad \mu=0.005$$
+Le componenti temporali della risposta libera del sistema con $\hat{U}=0.8\cdot\hat{U}_{F}=0.59256$ è:\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/halphasub}
+	\caption{Andamento temporale delle componenti $h(t)$ e $\alpha(t)$, caso statible }
+\end{figure}\\
+Si nota come le componenti mostrano un comportamento pseudoperiodico stabile ad elevato periodo.\\
+Vengono inoltre riportati gli andamenti temporali di $\dot{h}$ e $\dot{\alpha}$.
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/hpuntoalphapuntosub}
+		\caption{Andamento temporale delle componenti $\dot{h}(t)$ e $\dot{\alpha}(t)$, caso statible }
+\end{figure}\\
+Si nota come anche in questo caso siamo in presenza di andamenti di tipo pseudoperiodici  stabile ad elevato periodo.\\
+Per completezza viene riportata la risposta nel tempo e nello spazio della struttura considerata.
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rispostaliberasub}
+		\caption{Andamento spaziale e temporale del campo di spostamento {\bf w}, caso statible }
+\end{figure}\\
+ Si osserva come la risposta libera sia una combinazione dei modi di vibrare della struttura, presentanto un comportamento flesso-torsionale smorzato.\\
+ Infine si riportano in tabella i valori degli autovalori ottenuti e rispettivi autovettori nonchè delle costanti moltiplicative $c_{k}$, $k=1,..,4$.
+ \begin{center}
+ 	\begin{tabular}{c}
+ 		\hline
+ 		$c_{k}$ \\
+ 		\hline
+ 	   	 0.0063 - 0.0031i\\
+ 		 0.0063 + 0.0031i\\
+ 		-0.0017 - 0.0022i\\
+ 	    -0.0017 + 0.0022i\\
+
+ 		
+ 		\hline
+ 	\end{tabular}
+ \end{center}
+ \begin{center}
+ 	\begin{tabular}{c}
+ 		\hline
+ 		$s_{k}$ \\
+ 		\hline
+ 		
+       -0.1684 + 0.5265i\\
+       -0.1684 - 0.5265i\\
+       -0.0713 + 0.8617i\\
+       -0.0713 - 0.8617i\\
+ 		
+ 		\hline
+ 	\end{tabular}
+ \end{center}
+ \begin{center}
+ 	\begin{tabular}{cccc}
+ 		\hline
+ 		$\textbf{u}_{1}$&$\textbf{u}_{2}$&$\textbf{u}_{3}$&$\textbf{u}_{4}$ \\
+ 		\hline
+ 		
+  0.7866 + 0.0000i&   0.7866 + 0.0000i&  -0.1512 - 0.1060i&  -0.1512 + 0.1060i\\
+  0.0051 + 0.3836i&   0.0051 - 0.3836i&   0.7336 + 0.0000i&   0.7336 + 0.0000i\\
+ -0.1325 + 0.4142i&  -0.1325 - 0.4142i&   0.1021 - 0.1227i&   0.1021 + 0.1227i\\
+ -0.2028 - 0.0619i&  -0.2028 + 0.0619i&  -0.0523 + 0.6321i&  -0.0523 - 0.6321i\\
+
+ 		
+ 		\hline
+ 	\end{tabular}
+ \end{center}
+ \newpage
+\subsection{Risposta super-critica}
+Si vuole determinare la risposta libera della struttura, come nel caso precedente, ad eccezione del fatto che in questo caso verrà scelto un $\hat{U}=1.2\cdot\hat{U}_{F}=0.8884$.\\
+La formulazione del problema non risente della scelta di un valore $\hat{U}$ maggiore di quello critico. Per cui si riportano direttamente i risultati ottenuti:\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/halphasup}
+		\caption{Andamento temporale delle componenti $h(t)$ e $\alpha(t)$, caso statible }
+\end{figure}\\
+Si nota come in questo caso l'andamento temporale delle componenti $h(t)$ e $\alpha(t)$, presentano un comportamento oscillatorio divergente, e quindi instabile dal punto di vista dinamico, che potrebbe portare al collasso della struttura.\\
+Tuttavia bisogna osservare che i tempi di divergenza sono piuttosto lunghi, per cui in una situazione di questo tipo, il pilota potrebbe avrebbe il tempo di ridurre la velocità al fine di stabilizzare il moto divergente del velivolo.\\
+\newpage
+Si riportano inoltre gli andamenti temporali di $\dot{h}$ e $\dot{\alpha}$.\\ 
+\begin{figure}[h!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/hpuntoalphapuntosup}
+	\caption{Andamento temporale delle componenti $\dot{h}(t)$ e $\dot{\alpha}(t)$, caso instatible }
+\end{figure}\\
+Si può osservare come anche queste componenti presentano lo stesso tipo di divergenza.\\
+Per completezza viene riportato l'andamento spaziale e temporale del moto della struttura.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rispostaliberasup}
+\caption{Andamento spaziale e temporale del campo di spostamento {\bf w}, caso instatible }
+\end{figure}\\
+Si nota come la struttura presenti una divergenza oscillatoria ad elevato periodo, e come la risposta sia una combinazione di un moto flessionale e di uno torsionale, dal punto di vista strutturale il moto flessionale non risulta essere un grosso problema come quello torsionale, in cui la necessità di avere un momento polare basso per motivi aerodinamici, può indurre stress elevati nel materiale fino a superare lo snervamento.\\
+Bisogna ancora una volta osservare come i tempi caratteristici siano abbastanza elevati da evitare la divergenza della struttura.\\
+Infine si riportano in tabella i valori degli autovalori ottenuti e rispettivi autovettori nonchè delle costanti moltiplicative $c_{k}$, $k=1,..,4$.
+ \begin{center}
+ 	\begin{tabular}{c}
+ 		\hline
+ 		$c_{k}$ \\
+ 		\hline
+ 		
+ 		-0.0059 + 0.0070i\\
+ 		-0.0059 - 0.0070i\\
+ 		-0.0008 + 0.0017i\\
+ 		-0.0008 - 0.0017i\\
+ 		
+ 		\hline
+ 	\end{tabular}
+ \end{center}
+ \begin{center}
+ 	\begin{tabular}{c}
+ 		\hline
+ 		$s_{k}$ \\
+ 		\hline
+ 		
+ 		-0.4190 + 0.3517i\\
+ 		-0.4190 - 0.3517i\\
+ 		0.0673 + 0.7520i\\
+ 		0.0673 - 0.7520i\\
+ 		
+ 		\hline
+ 	\end{tabular}
+ \end{center}
+ \begin{center}
+ 	\begin{tabular}{cccc}
+ 		\hline
+ 		$\textbf{u}_{1}$&$\textbf{u}_{2}$&$\textbf{u}_{3}$&$\textbf{u}_{4}$ \\
+ 		\hline
+ 		
+ 		-0.7788 + 0.0000i&  -0.7788 + 0.0000i&  -0.0787 - 0.2232i&  -0.0787 + 0.2232i\\
+ 		0.3487 - 0.2040i&   0.3487 + 0.2040i&  -0.7622 + 0.0000i&  -0.7622 + 0.0000i\\
+ 		0.3263 - 0.2739i&   0.3263 + 0.2739i&   0.1625 - 0.0742i&   0.1625 + 0.0742i\\
+ 		-0.0744 + 0.2081i&  -0.0744 - 0.2081i&  -0.0513 - 0.5731i&  -0.0513 + 0.5731i\\
+	\hline
+\end{tabular}
+\end{center}
+
+
+\section{Stabilità velivolo aviazione generale}
+L'ultimo caso affrontato riguarda lo studio della stabilità lineare, mediante l'uso del luogo delle radici, di un velivolo dell'aviazione generale in volo stazionario al livello del mare, che presenta le seguenti caratteristiche:\\\\
+$\bullet$\quad Massa mezza ala $M=140kg$\\
+$\bullet$\quad Corda $c=1.5m$\\
+$\bullet$\quad Apertura semiala $L=4m$\\
+$\bullet$\quad Centro di massa posto a $x_{G}=c/3$ dal leading edge\\
+$\bullet$\quad Momento di inerzia calcolato rispetto al baricentro $J_{G}=0.25kgm^2$\\
+$\bullet$\quad Centro elastico posto a $x_{G}=c/2$\\
+$\bullet$\quad Frequenza del primo modo flessionale del sistema disaccoppiato $f_{1}=8Hz$\\
+$\bullet$\quad Frequenza del primo modo torsionale del sistema disaccoppiato $f_{2}=16Hz$\\
+Assumiamo che il velivolo possa essere schematizzato, almeno in uno studio preliminare, come una superficie portante sottile; inoltre dato l'elevato {\itshape aspect-ratio} dell'ala, possiamo ripensare il problema come un problema bidimensionale, e applicare i risultati ottenuti nelle precedenti sezioni, in presenza di aerodinamica stazionaria.\\
+Ricordiamo il sistema di equazioni:\\\\
+$$
+\left[
+\begin{matrix}
+1&\xi_{G} \\ \xi_{G}&r_{\alpha}^2-\xi_{E}+2\xi_{E}\xi_{G}
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+\ddot{h}\\ \ddot{\alpha}
+\end{array}
+\right]
++\Omega^2
+\left[
+\begin{matrix}
+1&\xi_{E} \\ \xi_{E}&\xi_{E}^2+r_{\alpha}^2/\Omega^2
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
++\hat{U}^2
+\left[
+\begin{matrix}
+0&2/a \\ 0&0
+\end{matrix}
+\right]
+\left[
+\begin{array}{cc}
+h\\ \alpha
+\end{array}
+\right]
+=
+\bf 0
+$$\\\\
+In particolare dai dati del velivolo, e dalle condizioni di volo ($\rho=1.22kg/m^3$) si ha:\\
+$$a=8.084,\quad \Omega=0.5,\quad \xi_{E}=0.5,\quad \xi_{G}=0.167,\quad r_{\alpha}^2=0.1365$$
+\newpage
+Si riportano i risultati cosi ottenuti.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocusvelivolo}
+	\caption{Luogo delle radici, aerodinamica stazionaria, velivolo aviazione generale}
+\end{figure}\\
+Si nota come da una situazione iniziale, in cui i poli si trovano tutti sull'asse immaginario, all'aumentare di $\hat{U}$ i poli a frequenza minore tendono a coalsescere per dare luogo al fenomeno di {\itshape divergenza} ad un valore di $\hat{U}=\hat{U}_{D}=1.0505$. In questo caso si nota come sia totalmente assente il fenomeno del {\itshape flutter}. 
+Riassumendo di ha:\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		$\hat{s}_{F}=$& / \\
+		\hline
+		$\hat{U}_{F}=$&/ \\
+		\hline
+		$\hat{s}_{D}=$&0 \\
+		\hline
+		$\hat{U}_{D}=$&1.0505\\					
+		\hline
+	\end{tabular}
+\end{center} 
+
+\end{document}
