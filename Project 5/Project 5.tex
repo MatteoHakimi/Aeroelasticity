@@ -1,0 +1,260 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Aeroelasticità\\ Esercitazione 5 \\ Prof.re Franco Mastroddi}
+\author{Matteo Hakimi\\ 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduzione}
+Si vuole studiare la stabilità di un sistema aeroelastico costituito da un cassone alare, attraverso l'utilizzo del solutore NASTRAN SOL 145. In particolare verranno calcolate le velocità di divergenza e di flutter.\\ 
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/cassone}
+	\caption{Cassone alare}
+\end{figure}\\
+ Le caratteristiche del cassone alare in figura sono:\\\\
+ $\bullet$ E = 68.948 GPa \quad\quad\quad\quad modulo di Young\\\\
+ $\bullet$ G = 27.579 GPa \quad\quad\quad\quad modulo di taglio\\\\
+ $\bullet$  $\rho$ = 2814 $kg/m^3$ \quad\quad\quad\quad densità\\\\
+ $\bullet$  $\tau_{s}$ = 2.03 mm \quad\quad\quad\quad\quad spessore del longherone\\\\
+ $\bullet$  $\tau_{p}$= 1.02 mm \quad\quad\quad\quad\quad spessore del rivestimento\\\\
+ $\bullet$  $\tau_{r}$= 1.02 mm \quad\quad\quad\quad\quad spessore della centina\\\\
+ $\bullet$ A= 1.29 $ 10^{-3}$ $m^2$ \quad\quad\quad sezione dei correntini\\\\
+ $\bullet$ h= 0.1016 m \quad\quad\quad\quad\quad altezza del cassone\\\\
+ $\bullet$ w = 0.635 m \quad\quad\quad\quad\quad larghezza del cassone\\\\
+ $\bullet$ l= 4.57 m \quad\quad\quad\quad\quad\quad lunghezza del cassone\\\\ 
+\section{Modello}
+Il file .dat, che deve essere implementato al fine dell'analisi in ambiente NASTRAN, consta di tre sezioni principali: l'{\itshape Executive Control Section}, il {\itshape Case Control Section} e il {\itshape Bulk Data Section}; nella prima scheda, deve essere  specificato il tipo di solutore utilizzato nell' analisi.\\ Quest'ultimo dipende dal tipo di problema preso in considerazione; nel caso del {\itshape flutter} si ha: SOL 145.\\
+Nel {\itshape Case Control Section} vengono indicati i metodi numerici utilizzati per la risoluzione del problema preso in considerazione. Nella fattispecie, si \'e scelto il metodo p-k per il problema aeroelastico; mentre per il calcolo degli autovalori/autovettori, del problema di dinamica strutturale, si \'e fatto uso del metodo di {\itshape Lanczos}.\\
+Infine nella terza parte viene riportato il modello aeroelastico in questione, comprensivo delle sue caratteristiche aerodinamiche e strutturali.\\
+Da quanto detto sopra, al fine del calcolo della stabilit\'a aeroelastica, dobbiamo innanzitutto introdurre un modello strutturale, che ci permetta di calcolare i modi propri, e relative frequenze proprie, della struttura. Ricordiamo infatti, come il sistema di equazioni del moto, e relative condizioni al contorno, sia ottenuto a partire dalla proiezione dell'equazione di Cauchy sulle funzioni di forma, scelte coincidenti con i modi propri della struttura.
+\section{Modello strutturale}
+La descritizzazione strutturale del cassone alare è composta da:\\\\  $\bullet$ 42 nodi (GRID)\\\\
+$\bullet$ 6 elementi di tipo SHELL a quattro nodi (CQUAD4)
+di spessore sottile pari a 1.02 mm per le tre centine\\\\
+$\bullet$ 12 elementi di tipo SHELL a quattro nodi (CQUAD4)
+ di spessore sottile pari a 1.02 mm, per il
+rivestimento\\\\
+ $\bullet$ 24 elementi di tipo SHELL a quattro nodi (CQAUD4)
+ di spessore sottile pari a 2.03 mm, per l'anima dei
+longheroni\\\\
+$\bullet$ 24 elementi a due nodi (CROD) modellizzati come aste con
+sezione  1.29 $ 10^{-3}$ $m^2$ \\\\
+Per quanto riguarda le condizioni di vincolo, i quattro nodi ai
+vertici della prima sezione a sinistra sono fissati a
+parete, dato che il cassone è idealmente connesso alla
+fusoliera. Per tutti gli altri nodi si impone nulla la sola
+rotazione attorno a z (R3).
+\section{Modello aerodinamico}
+Il {\itshape Doublets-lattice Method} prevede la discretizzazione delle superfici portanti con pannelli aerodinamici di spessore
+trascurabile (da qui il nome, in quanto scompaiono i contributi
+delle sorgenti nel flusso a potenziale) e per ciascuno di essi
+calcolare il carico aerodinamico attraverso il salto di
+pressione. Nel modello in esame si considerano 25 pannelli
+nella direzione della velocità della corrente e 20 lungo
+l'apertura alare. Generalmente si può assumere predominante
+il contributo della scia nella direzione del moto, quindi è
+necessario scegliere la grandezza e il numero dei pannelli in
+modo da evitare problemi di aliasing legati alle frequenze con
+cui la scia varia durante il moto.\\
+Si può utilizzare la relazione:\\
+$$\Delta x_{min}=N_{nodi}\frac{U_{\infty}}{f^{w}_{max}}$$
+Le grandezze di riferimento scelte sono:
+$$M_{\infty} = 0.5566 \quad \rho_{\infty} = 0.9046 kg/m^3 \quad c_{re} = 1.27 m$$
+I pannelli sono associati alla struttura mediante interpolazione
+polinomiale con funzioni spline nei nodi collocati lungo la
+linea media dei due longheroni. Il bordo d'attacco si trova a $x_{L.E.} = -0.5715 m$.
+Per quanto riguarda il calcolo della matrice aerodinamica (GAF), fissando i parametri di volo, viene generata al variare della velocità da 100 m/s a 300 m/s e la frequenza ridotta k da 0 a 3.
+\section{Calcolo dei modi propri strutturali} 
+In questa sezione vengono calcolati i primi 10 modi propri della struttura, attraverso l'uso del solutore SOL 103 di NASTRAN.\\
+In particolare vengono riportati i valori delle frequeze proprie.
+\begin{center}
+	\begin{tabular}{l l l l}
+		\hline
+		Modo & $\lambda_{n}$ & $\omega_{n}$ (rad/s) & $f_{n}$ (Hz)\\
+		\hline
+                 1  &      3.955037E+03    &    6.288908E+01   &     1.000911E+01   \\     
+                 2  &      2.242300E+04    &    1.497431E+02   &     2.383236E+01   \\    
+                 3  &      4.600258E+04    &    2.144821E+02   &     3.413589E+01   \\     
+                 4  &      7.999938E+04    &    2.828416E+02   &     4.501564E+01   \\    
+                 5  &      2.208572E+05    &    4.699545E+02   &     7.479558E+01   \\     
+                 6  &      3.947848E+05    &    6.283190E+02   &     1.000001E+02   \\     
+                 7  &      6.410645E+05    &    8.006650E+02   &     1.274298E+02   \\     
+                 8  &      7.522020E+05    &    8.672958E+02   &     1.380344E+02   \\     
+                 9  &      1.122287E+06    &    1.059381E+03   &     1.686057E+02   \\     
+                10  &      1.173394E+06    &    1.083233E+03   &     1.724019E+02   \\
+         \hline            
+	\end{tabular}
+\end{center}
+Per completezza vengono riportate le forme modali\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_1}
+	\caption{Modo 1}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_2}
+	\caption{Modo 2}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_3}
+	\caption{Modo 3}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_4}
+	\caption{Modo 4}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_5}
+	\caption{Modo 5}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_6}
+	\caption{Modo 6}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_7}
+	\caption{Modo 7}
+\end{figure}\
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_8}
+	\caption{Modo 8}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_9}
+	\caption{Modo 9}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=100mm]{Immagini/mode_10}
+	\caption{Modo 10}
+\end{figure}
+\newpage
+Dalle tabelle dei relativi spostamenti dei gradi di libertà di ogni nodo (che qui non vengono riportate) si evince che:\\
+$\bullet$ I modi 1, 4, 6, 10 rappresentano i primi quattro modi flessionali nel piano xz.\\
+$\bullet$ I modi 2, 5, 7, 9 rappresentano i primi quattro modi torsionali attorno l'asse x.\\
+$\bullet$ I modi 3,8 rappresentano i primi due modi flessionali nel piano xy.\\
+Si osserva inoltre come i modi risultano completamente disaccoppiati, questo si verifica poichè in questo caso il centro elastico della struttura coincide con centro di simmetria del cassone stesso.\\
+\section{Stabilità aeroelastica}
+In questa sezione si vuole studiare la stabilità aeroelstica del sistema attraverso l'uso del luogo delle radici, identificando laddove sia necessario, le velocità in corrispondeza delle condizioni critiche di flutter e divergenza.\\
+In particolare lo studio di stabilità verrà reiterato cambiando i parametri di volo (quota e numero di Mach) e lo spessore dei pannelli strutturali del cassone.\\
+Il primo caso preso in considerazione nello studio della stabilità aeroelastica prevede:\\
+$\bullet$ $M_{\infty}=0.5566$\\
+$\bullet$ $\rho_{\infty}=0.9046 kg/m^3$\\
+Si riportano dapprima i risultati ottenuti in forma grafica per poi commentarli.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus}
+	\caption{Luogo delle radici, $M_{\infty}=0.5566$ $\rho_{\infty}=0.9046 kg/m^3$}
+\end{figure}\\
+Si osserva come, a partire da una situazione di stabilità iniziale, all'aumentare della velocità il secondo polo del sistema, associato al modo di torsione a più bassa frequenza, attraversi l'asse immaginario per portarsi nel semipiano positivo del piano complesso, rendendo il sistema instabile. Poichè l'attraversamento avviene ad una frequenza non nulla, la condizione di instabilità è di tipo dinamica, nella fattispecie si incorre nel fenomeno di flutter aeroelastico.\\
+Aumentando ulteriormente la velocità, il primo polo del sistema tende a coalescere sull'asse reale per poi attraversa l'origine. In questo caso siamo difronte all'istabilità statica comunemente detta divergenza aeroelastica.\\
+Per completezza si riportano i valori di velocità critica dei casi descritti precedentemente.\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		${U}_{F}=$&237.0 $m/s$\\
+		\hline
+		${U}_{D}=$&273.0 $m/s$ \\					
+		\hline
+	\end{tabular}
+\end{center}
+Per quanto riguarda la frequenza associata alla condizione di flutter si ha:\\
+$$k_{F}=0.247$$
+\subsection{Stabilità caso incomprimibile}
+In questa sezione si vuole studiare la stabilità attraverso l'utilizzo del luogo delle radici, del cassone alare precedente, ponendo come Mach di volo $M_{\infty}=0.0001$, e lasciando la quota di volo inalterata ($\rho_{\infty}=0.9046$ $kg/m^3$).
+Si riporta il luogo delle radici.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus_M}
+	\caption{Luogo delle radici, $M_{\infty}=0.0001$ $\rho_{\infty}=0.9046 kg/m^3$}
+\end{figure}\\
+In questo non si osservano particolari differenze con il caso precedentemente trattato. Si può dedurre che l'effetto della comprimibilità, per questo sistema, non influenzi la stibilità del sistema.\\
+Per completezza vengono riportati i valori di velocità critica.\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		${U}_{F}=$&237.0 $m/s$\\
+		\hline
+		${U}_{D}=$&273.0 $m/s$ \\					
+		\hline
+	\end{tabular}
+\end{center}
+\subsection{Stabilità caso variazione di quota}  
+In questa sezione si vuole studiare la stabilità del sistema, variando la quota di volo. In particolare si impone come condizione di volo $h=15000 m$, che corrisponde a un valore di densità pari a $\rho_{\infty}=0.19475 kg/m^3$.
+\newpage
+Si riportano dapprima i risultati per poi commentarli.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus_p}
+	\caption{Luogo delle radici, $M_{\infty}=0.5566$ $\rho_{\infty}=0.19475 kg/m^3$}
+\end{figure}\\
+In questo caso non si apprezzano condizioni critiche di instabilità in questo range di velocità. L'aumento di quota quindi, a parità delle altre condizioni di volo, induce un miglioramento in termini di stabilità. Questo fatto può essere attributo alla riduzione delle forze aerodinamiche sul cassone, attraverso la diminuzione della pressione dinamica.
+Per completezza si riporta il confronto del luogo delle radici ottenuto in questo caso con quello ottenuto a $\rho=0.9046 kg/m^3$
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus_pvs}
+	\caption{Confronto luogo delle radici, $M_{\infty}=0.5566$ $\rho_{\infty}=0.9046 kg/m^3$ (linea blu) $\rho_{\infty}=0.19475 kg/m^3$ (linea rossa)}
+\end{figure}
+\newpage
+\subsection{Stabilità caso variazione di spessore}
+In questa sezione si vuole studiare la stabilità del sistema, variando lo spessore dei pannelli di rivestimento. In particola lo spessore verrà incrementato di 0.5 mm.\\
+L'aumento dello spessore dei pannelli, modifica le proprietà di massa e rigidezza della struttura, modificandone anche le frequenze naturali.\\
+Vengono riportati i risultati in forma grafica.\\
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus_t}
+	\caption{Luogo delle radici, $M_{\infty}=0.5566$ $\rho_{\infty}=0.19475 kg/m^3$}
+\end{figure}\\
+Si osserva come, a partire da una situazione di stabilità iniziale, all'aumentare della velocità il secondo polo del sistema, associato al modo di torsione a più bassa frequenza, attraversi l'asse immaginario per portarsi nel semipiano positivo del piano complesso, rendendo il sistema instabile. Poichè l'attraversamento avviene ad una frequenza non nulla, la condizione di instabilità è di tipo dinamica, nella fattispecie si incorre nel fenomeno di flutter aeroelastico.\\
+Si può osservare come in questo caso, e per questo range di velocità, non sia presente l'instabilità di divergenza aeroelastica.\\ 
+Vengono riportati i valori di velocità e frequenza di attraversamento nella condizione di flutter.\\
+\begin{center}
+	\begin{tabular}{c c}
+		\hline
+		${U}_{F}=$&277.0 $m/s$\\
+		\hline
+		${k}_{f}=$&0.247  \\					
+		\hline
+	\end{tabular}
+\end{center}
+Si nota un aumento di 40 m/s della velocità di flutter, rispetto al caso in cui si aveva lo spessore dei pannelli di rivestimento pari a 1.02 mm. Questo implica un ritardo dell'isorgenza dell'istabilità dinamica.
+\newpage
+Per completezza si riporta il confronto del luogo delle radici ottenuto in questo caso con quello ottenuto a $t=1.02 mm$.
+\begin{figure}[htbp!]
+	\centering	
+	\includegraphics[width=150mm]{Immagini/rlocus_pvs}
+	\caption{Confronto luogo delle radici, $M_{\infty}=0.5566$ $\rho_{\infty}=0.9046 kg/m^3$ $t=1.02 mm$ (linea blu) $t=1.52 mm$  (linea rossa)}
+\end{figure}\\
+\end{document}
